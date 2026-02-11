@@ -8,6 +8,9 @@ import com.workoutracker.infrastructure.persistence.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Transactional
 @Component
 public class UserRepositoryGateway  implements UserGateway {
@@ -24,5 +27,13 @@ public class UserRepositoryGateway  implements UserGateway {
         UserEntity entity = mapper.toEntity(user);
         UserEntity newUser = userRepository.save(entity);
         return mapper.toDomain(newUser);
+    }
+
+    @Override
+    public List<User> listUsers() {
+        List<UserEntity> listUsers = userRepository.findAll();
+        return  listUsers.stream()
+                .map(mapper::toDomain)
+                .collect(Collectors.toList());
     }
 }
