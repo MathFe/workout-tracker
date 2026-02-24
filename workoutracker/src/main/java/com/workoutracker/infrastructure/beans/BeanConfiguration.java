@@ -1,10 +1,8 @@
 package com.workoutracker.infrastructure.beans;
 
 import com.workoutracker.core.gateway.UserGateway;
-import com.workoutracker.core.usecases.CreateUserCase;
-import com.workoutracker.core.usecases.CreateUserCaseImpl;
-import com.workoutracker.core.usecases.ListUserCase;
-import com.workoutracker.core.usecases.ListUserCaseImpl;
+import com.workoutracker.core.gateway.WorkoutPlanGateway;
+import com.workoutracker.core.usecases.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,5 +16,10 @@ public class BeanConfiguration {
     @Bean
     public ListUserCase listUserCase(UserGateway userGateway){
         return new ListUserCaseImpl(userGateway);
+    }
+
+    @Bean
+    public CreateWorkoutPlanCase createWorkoutPlanCase(WorkoutPlanGateway workoutPlanGateway){
+        return new CreateWorkoutPlanCaseImpl(workoutPlanGateway);
     }
 }

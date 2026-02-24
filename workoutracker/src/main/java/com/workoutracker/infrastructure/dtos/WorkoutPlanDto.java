@@ -1,4 +1,12 @@
 package com.workoutracker.infrastructure.dtos;
 
-public record WorkoutPlanDto() {
+import java.time.LocalDateTime;
+
+public record WorkoutPlanDto(
+        Long id,
+        Long userId,
+        String name,
+        LocalDateTime createdAt
+
+) {
 }

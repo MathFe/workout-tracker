@@ -1,4 +1,5 @@
 package com.workoutracker.infrastructure.dtos;
 
-public class WorkoutPlanRequestDto {
-}
+public record WorkoutPlanRequestDto(
+        String name
+){}

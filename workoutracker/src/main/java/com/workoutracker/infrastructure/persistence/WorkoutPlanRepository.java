@@ -1,4 +1,6 @@
 package com.workoutracker.infrastructure.persistence;
 
-public interface WorkoutPlanRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface WorkoutPlanRepository extends JpaRepository<WorkoutPlanEntity, Long> {
 }
