@@ -1,4 +1,8 @@
 package com.workoutracker.core.usecases;
 
-public interface createWorkoutPlanCase {
+import com.workoutracker.core.entities.WorkoutPlan;
+
+public interface CreateWorkoutPlanCase {
+
+    public WorkoutPlan execute(WorkoutPlan workoutPlan);
 }
