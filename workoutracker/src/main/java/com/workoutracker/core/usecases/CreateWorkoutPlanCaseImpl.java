@@ -13,6 +13,13 @@ public class CreateWorkoutPlanCaseImpl implements CreateWorkoutPlanCase{
 
     @Override
     public WorkoutPlan execute(WorkoutPlan workoutPlan) {
-        return null;
+        WorkoutPlan workoutPlan1 = new WorkoutPlan(
+                workoutPlan.id(),
+                workoutPlan.userId(),
+                workoutPlan.name(),
+                workoutPlan.createdAt()
+        );
+
+        return workoutPlanGateway.createWorkoutPlan(workoutPlan1);
     }
 }
