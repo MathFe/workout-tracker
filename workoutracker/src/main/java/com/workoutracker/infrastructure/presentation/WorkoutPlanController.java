@@ -29,7 +29,7 @@ public class WorkoutPlanController {
     public ResponseEntity<Map<String, Object>> createWorkoutPlan(@RequestBody WorkoutPlanDto workoutPlanDto) {
         WorkoutPlan newWorkoutPlan = createWorkoutPlanCase.execute(workoutPlanDtoMapper.toEntity(workoutPlanDto));
         Map<String, Object> response = new HashMap<>();
-        response.put("Mensagem: ","Usuário registrado com sucesso no banco de dados!");
+        response.put("Mensagem: ","Treino registrado com sucesso no banco de dados!");
         response.put("Dados do plano de treino: ", workoutPlanDtoMapper.toResponseDto(newWorkoutPlan));
         return ResponseEntity.ok(response);
 

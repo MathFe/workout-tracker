@@ -3,7 +3,9 @@ package com.workoutracker.infrastructure.mapper;
 import com.workoutracker.core.entities.WorkoutPlan;
 import com.workoutracker.infrastructure.persistence.UserEntity;
 import com.workoutracker.infrastructure.persistence.WorkoutPlanEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class WorkoutPlanEntityMapper {
 
     public WorkoutPlanEntity toEntity(WorkoutPlan domain, UserEntity user) {
