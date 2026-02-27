@@ -2,13 +2,14 @@ package com.workoutracker.infrastructure.presentation;
 
 import com.workoutracker.core.entities.WorkoutPlan;
 import com.workoutracker.core.usecases.CreateWorkoutPlanCase;
+import com.workoutracker.infrastructure.dtos.UserWithWorkoutsResponseDto;
 import com.workoutracker.infrastructure.dtos.WorkoutPlanDto;
+import com.workoutracker.infrastructure.dtos.WorkoutPlanResponseDto;
 import com.workoutracker.infrastructure.mapper.WorkoutPlanDtoMapper;
+import com.workoutracker.infrastructure.persistence.UserEntity;
+import com.workoutracker.infrastructure.persistence.UserRepository;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,10 +20,12 @@ public class WorkoutPlanController {
 
     private final CreateWorkoutPlanCase createWorkoutPlanCase;
     private final WorkoutPlanDtoMapper workoutPlanDtoMapper;
+    private final UserRepository userRepository;
 
-    public WorkoutPlanController(CreateWorkoutPlanCase createWorkoutPlanCase, WorkoutPlanDtoMapper workoutPlanDtoMapper) {
+    public WorkoutPlanController(CreateWorkoutPlanCase createWorkoutPlanCase, WorkoutPlanDtoMapper workoutPlanDtoMapper, UserRepository userRepository) {
         this.createWorkoutPlanCase = createWorkoutPlanCase;
         this.workoutPlanDtoMapper = workoutPlanDtoMapper;
+        this.userRepository = userRepository;
     }
 
     @PostMapping("create")
@@ -33,5 +36,16 @@ public class WorkoutPlanController {
         response.put("Dados do plano de treino: ", workoutPlanDtoMapper.toResponseDto(newWorkoutPlan));
         return ResponseEntity.ok(response);
 
+    }
+
+    @GetMapping("{id}/with-workouts")
+    public UserWithWorkoutsResponseDto getUserWithWorkouts(@PathVariable Long id){
+        UserEntity u = userRepository.findById(id).orElseThrow();
+        return new UserWithWorkoutsResponseDto(
+                u.getId(), u.getUsername(),
+                u.getWorkoutPlans().stream()
+                        .map(wp -> new WorkoutPlanResponseDto(wp.getId(), u.getId(), wp.getName(), wp.getCreatedAt()))
+                        .toList()
+        );
     }
 }

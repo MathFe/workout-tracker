@@ -2,9 +2,9 @@ package com.workoutracker.infrastructure.dtos;
 
 import java.util.List;
 
-public record UserWithWorkoutsRersponseDto(
+public record UserWithWorkoutsResponseDto(
         Long id,
         String username,
-        List<WorkoutPlanResponseDto> workoutPlanResponseDtos
+        List<WorkoutPlanResponseDto> workoutPlans
 ) {
 }

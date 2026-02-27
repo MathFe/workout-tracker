@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,4 +20,6 @@ public class UserEntity {
     private String username;
     @Column(nullable = false)
     private String password;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<WorkoutPlanEntity> workoutPlans;
 }
